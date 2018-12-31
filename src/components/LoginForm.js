@@ -8,12 +8,19 @@ class LoginForm extends Component {
 	constructor(props) {
 		super(props);
 
-		this.state = { email: '', password: '', error: '', loading: false };
+		this.state = {
+			email: '',
+			password: '',
+			error: '',
+			loading: false,
+			isEditable: true
+		};
 	}
 
 	_onButtonPress() {
 		const { email, password } = this.state;
 		this.setState({
+			isEditable: false,
 			error: '',
 			loading: true
 		});
@@ -34,8 +41,6 @@ class LoginForm extends Component {
 
 	_onLoginSuccess = () => {
 		this.setState({
-			email: '',
-			password: '',
 			error: ''
 		});
 	};
@@ -43,7 +48,10 @@ class LoginForm extends Component {
 	_onLoginFail = () => {
 		this.setState({
 			error: 'Authentication Failed.',
-			loading: false
+			email: '',
+			password: '',
+			loading: false,
+			isEditable: true
 		});
 	};
 
@@ -57,7 +65,7 @@ class LoginForm extends Component {
 	};
 
 	render() {
-		const { email, password, error } = this.state;
+		const { email, password, error, isEditable } = this.state;
 		const { errorTextStyle } = styles;
 		return (
 			<Card>
@@ -67,6 +75,7 @@ class LoginForm extends Component {
 						onChangeText={email => this.setState({ email, error: '' })}
 						value={email}
 						placeHolder={'user@email.com'}
+						editable={isEditable}
 					/>
 				</CardSection>
 
@@ -77,6 +86,7 @@ class LoginForm extends Component {
 						value={password}
 						placeHolder={'password min 6 chars'}
 						secureTextEntry
+						editable={isEditable}
 					/>
 				</CardSection>
 				<Text style={errorTextStyle}>{error}</Text>
