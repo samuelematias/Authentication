@@ -6,7 +6,8 @@ import {
 	Button,
 	Card,
 	CardSection,
-	Spinner
+	Spinner,
+	Input
 } from './components/common';
 import LoginForm from './components/LoginForm';
 
@@ -14,7 +15,7 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 
-		this.state = { loggedIn: null };
+		this.state = { loggedIn: null, user: null };
 	}
 
 	componentDidMount() {
@@ -37,7 +38,8 @@ class App extends Component {
 		return firebase.auth().onAuthStateChanged(user => {
 			if (user) {
 				this.setState({
-					loggedIn: true
+					loggedIn: true,
+					user
 				});
 			} else {
 				this.setState({
@@ -52,17 +54,30 @@ class App extends Component {
 	};
 
 	_renderContent = () => {
-		const { loggedIn } = this.state;
+		const { loggedIn, user } = this.state;
 
 		switch (loggedIn) {
 			case true:
-				return (
-					<Card>
-						<CardSection>
-							<Button onPress={() => this._onLogOut()}>{'Log Out'}</Button>
-						</CardSection>
-					</Card>
-				);
+				if (user) {
+					const { email } = user;
+					return (
+						<Card>
+							<CardSection>
+								<Input
+									label={'Email'}
+									value={email}
+									textStyle={{ color: '#ddd' }}
+									editable={false}
+								/>
+							</CardSection>
+							<CardSection>
+								<Button onPress={() => this._onLogOut()}>{'Log Out'}</Button>
+							</CardSection>
+						</Card>
+					);
+				} else {
+					return <Spinner />;
+				}
 			case false:
 				return <LoginForm />;
 			default:

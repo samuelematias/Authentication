@@ -7,20 +7,23 @@ const Input = ({
 	value,
 	onChangeText,
 	placeHolder,
-	secureTextEntry
+	secureTextEntry,
+	editable,
+	textStyle
 }) => {
 	const { inputStyle, labelStyle, containerStyle } = styles;
 	return (
 		<View style={containerStyle}>
 			<Text style={labelStyle}>{label}</Text>
 			<TextInput
-				style={inputStyle}
+				style={[inputStyle, textStyle]}
 				value={value}
 				onChangeText={onChangeText}
 				autoCorrect={false}
 				placeholder={placeHolder}
 				autoCapitalize="none"
 				secureTextEntry={secureTextEntry}
+				editable={editable}
 			/>
 		</View>
 	);
