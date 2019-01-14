@@ -30,6 +30,17 @@
 
 This app was developed on the Udemy Course [The Complete React Native and Redux Course](https://www.udemy.com/the-complete-react-native-and-redux-course/) by [Stephen Grider](https://www.udemy.com/user/sgslo/).<br/>
 In this application is used <b>Firebase authentication </b>to login/logout and save the email/password the user.
+
+<br/>
+
+## Tech Stack
+
+- [React Native](https://github.com/facebook/react-native)
+
+## Used libraries
+
+- [Firebase](https://firebase.google.com/)
+
 <br/>
 
 ### Running it locally
